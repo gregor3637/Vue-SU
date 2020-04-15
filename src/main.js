@@ -12,12 +12,12 @@ axios.defaults.baseURL = 'https://examprep-c35f8.firebaseio.com';
 axios.defaults.headers.get['Accepts'] = 'application/json';
 
 const reqInterceptor = axios.interceptors.request.use(config => {
-  console.log(`Request Interceptor`, config);
+  // console.log(`Request Interceptor`, config);
   return config;
 });
 
 const resInterceptor = axios.interceptors.response.use(res => {
-  console.log(`Response interceptor `, res);
+  // console.log(`Response interceptor `, res);
   return res;
 })
 

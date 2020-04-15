@@ -2,22 +2,25 @@
   <div id="signin">
     <div class="signin-form">
       <form @submit.prevent="onSubmit">
-        <div class="input">
+        <div class="input" :class="{invalid: $v.email.$error}">
           <label for="email">Mail</label>
           <input
                   type="email"
                   id="email"
+                  @blur="$v.email.$touch()"
                   v-model="email">
+                  <p v-if="!$v.email.email">Email is invalid</p>
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.password.$error}">
           <label for="password">Password</label>
           <input
                   type="password"
+                  @blur="$v.password.$touch()"
                   id="password"
                   v-model="password">
         </div>
         <div class="submit">
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
       </form>
     </div>
@@ -25,12 +28,23 @@
 </template>
 
 <script>
+  import {required, email, numeric, minValue, minLength ,sameAs} from 'vuelidate/lib/validators'
+  import axios from 'axios'
   export default {
     data () {
       return {
         email: '',
         password: ''
       }
+    },
+    validations: {
+      email: {
+        required: required,
+        email: email,
+      },
+      password: {
+        required: required,
+      },
     },
     methods: {
       onSubmit () {
@@ -103,5 +117,14 @@
     background-color: transparent;
     color: #ccc;
     cursor: not-allowed;
+  }
+
+    .input.invalid label {
+  color:red;
+  }
+
+  .input.invalid input {
+    border: 1px solid red;
+    background-color: rgb(255, 134, 134);
   }
 </style>
