@@ -1,12 +1,12 @@
 <template>
   <header id="header">
-    <div class="logo">
-      <router-link to="/">Veggie Shop</router-link>
+    <div class="logo navbar-header">
+      <router-link to="/" class="navbar-brand">Veggie Shop</router-link>
     </div>
     <nav>
-      <ul>
+      <ul class="">
         <li v-if="!auth">
-          <router-link to="/signup">Sign Up</router-link>
+          <router-link to="/signup">Sign Upp</router-link>
         </li>
         <li v-if="!auth">
           <router-link to="/signin">Sign In</router-link>
@@ -18,7 +18,7 @@
           <router-link to="/history">Purchase History</router-link>
         </li>
         <li v-if="auth">
-          <button class="logout" @click="onLogout">Logout</button>
+          <a class="logout" @click="onLogout">Logout</a>
         </li>
       </ul>
     </nav>
@@ -82,12 +82,13 @@ li {
 li a {
   text-decoration: none;
   color: white;
+  background-color: transparent;
 }
 
 li a:hover,
 li a:active,
 li a.router-link-active {
-  color: #fa923f;
+  color: red;
 }
 
 .logout {
