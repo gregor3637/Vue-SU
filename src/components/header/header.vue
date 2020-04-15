@@ -15,7 +15,7 @@
           <router-link to="/store">Store</router-link>
         </li>
         <li v-if="auth">
-          <router-link to="/dashboard">Purchase Dashboard</router-link>
+          <router-link to="/history">Purchase History</router-link>
         </li>
         <li v-if="auth">
           <button class="logout" @click="onLogout">Logout</button>

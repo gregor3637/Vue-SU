@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import store from './store.js'
 
 import WelcomePage from './components/welcome/welcome.vue'
-import DashboardPage from './components/dashboard/dashboard.vue'
+import HistoryPage from './components/history/history.vue'
 import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import StorePage from './components/store/store.vue'
@@ -27,7 +27,7 @@ const routes = [
     }
   },
   {
-    path: '/dashboard', component: DashboardPage,
+    path: '/history', component: HistoryPage,
     beforeEnter(to, from, next) {
       if (store.state.idToken) {
         next()

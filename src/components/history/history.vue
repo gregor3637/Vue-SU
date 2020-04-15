@@ -1,6 +1,6 @@
 <template>
-  <div id="dashboard">
-    <h1>That's the history purchases dashboard!</h1>
+  <div id="history">
+    <h1>That's the history purchases history!</h1>
     <p>You should only get here if you're authenticated!</p>
     <p v-if="email">Email address: {{email}}</p>
   </div>

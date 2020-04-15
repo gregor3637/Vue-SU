@@ -58,7 +58,7 @@ export default new Vuex.Store({
             idToken: res.data.idToken,
             userId: res.data.localId
           })
-          router.replace('/dashboard');
+          router.replace('/history');
         })
         .catch(err => console.log(err));
     },
