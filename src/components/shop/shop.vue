@@ -8,18 +8,13 @@
 <script>
 import Item from "./item.vue";
 export default {
-  data() {
-    return {
-      items: [
-        { id: 1, name: "Apple", price: 1.5 },
-        { id: 2, name: "Banana", price: 3 },
-        { id: 3, name: "Potato", price: 0.2 },
-        { id: 4, name: "Cheese", price: 5 }
-      ]
-    };
-  },
   components: {
     appItem: Item
+  },
+  computed: {
+    items() {
+      return this.$store.getters.items;
+    }
   }
 };
 </script>

@@ -12,7 +12,7 @@
           <router-link to="/signin">Sign In</router-link>
         </li>
         <li v-if="auth">
-          <router-link to="/store">Store</router-link>
+          <router-link to="/shop">Shop</router-link>
         </li>
         <li v-if="auth">
           <router-link to="/history">Purchase History</router-link>
