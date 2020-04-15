@@ -2,66 +2,53 @@
   <div id="signup">
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
-        <div class="input">
+        <div class="input" :class="{invalid: $v.email.$error}">
           <label for="email">Mail</label>
           <input
                   type="email"
                   id="email"
+                  @blur="$v.email.$touch()"
                   v-model="email">
+                  <p v-if="!$v.email.email">Email is invalid</p>
+                  <!-- <p v-if="!$v.email.required">Empty Email</p> -->
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.age.$error}">
           <label for="age">Your Age</label>
           <input
                   type="number"
                   id="age"
+                  @blur="$v.age.$touch()"
                   v-model.number="age">
+                  <p v-if="!$v.age.minVal">Must be above {{$v.age.$params.minVal.min}} years</p>
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.password.$error}">
           <label for="password">Password</label>
           <input
                   type="password"
                   id="password"
+                  @blur="$v.password.$touch()"
                   v-model="password">
         </div>
-        <div class="input">
+        <div class="input" :class="{invalid: $v.confirmPassword.$error}">
           <label for="confirm-password">Confirm Password</label>
           <input
                   type="password"
                   id="confirm-password"
+                  @blur="$v.confirmPassword.$touch()"
                   v-model="confirmPassword">
         </div>
         <div class="input">
-          <label for="country">Country</label>
-          <select id="country" v-model="country">
-            <option value="usa">USA</option>
-            <option value="india">India</option>
-            <option value="uk">UK</option>
-            <option value="germany">Germany</option>
+          <label for="city">City</label>
+          <select id="city" v-model="city">
+            <option value="sofia">Sofia</option>
+            <option value="varna">Varna</option>
+            <option value="ruse">Ruse</option>
+            <option value="pleven">Pleven</option>
           </select>
         </div>
-        <div class="hobbies">
-          <h3>Add some Hobbies</h3>
-          <button @click="onAddHobby" type="button">Add Hobby</button>
-          <div class="hobby-list">
-            <div
-                    class="input"
-                    v-for="(hobbyInput, index) in hobbyInputs"
-                    :key="hobbyInput.id">
-              <label :for="hobbyInput.id">Hobby #{{ index }}</label>
-              <input
-                      type="text"
-                      :id="hobbyInput.id"
-                      v-model="hobbyInput.value">
-              <button @click="onDeleteHobby(hobbyInput.id)" type="button">X</button>
-            </div>
-          </div>
-        </div>
-        <div class="input inline">
-          <input type="checkbox" id="terms" v-model="terms">
-          <label for="terms">Accept Terms of Use</label>
-        </div>
+        
         <div class="submit">
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
       </form>
     </div>
@@ -69,6 +56,7 @@
 </template>
 
 <script>
+  import {required, email, numeric, minValue, minLength ,sameAs} from 'vuelidate/lib/validators'
 
   export default {
     data () {
@@ -77,9 +65,27 @@
         age: null,
         password: '',
         confirmPassword: '',
-        country: 'usa',
+        city: 'usa',
         hobbyInputs: [],
         terms: false
+      }
+    },
+    validations: {
+      email: {
+        required: required,
+        email: email
+      },
+      age: {
+        required: required,
+        numeric: numeric,
+        minVal: minValue(18)
+      },
+      password: {
+        required: required,
+        minLen: minLength(6)
+      },
+      confirmPassword: {
+        sameAs: sameAs('password')
       }
     },
     methods: {
@@ -99,7 +105,7 @@
           age: this.age,
           password: this.password,
           confirmPassword: this.confirmPassword,
-          country: this.country,
+          city: this.city,
           hobbies: this.hobbyInputs.map(hobby => hobby.value),
           terms: this.terms
         }
@@ -196,5 +202,15 @@
     background-color: transparent;
     color: #ccc;
     cursor: not-allowed;
+  }
+
+  
+  .input.invalid label {
+  color:red;
+  }
+
+  .input.invalid input {
+    border: 1px solid red;
+    background-color: rgb(187, 11, 11);
   }
 </style>
