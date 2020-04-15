@@ -1,7 +1,7 @@
 <template>
   <header id="header">
     <div class="logo">
-      <router-link to="/">Vue - Complete Guide</router-link>
+      <router-link to="/">Veggie Shop</router-link>
     </div>
     <nav>
       <ul>
@@ -26,7 +26,7 @@
     flex-flow: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #521751;
+    background-color: #1700eb;
     padding: 0 20px;
   }
 
