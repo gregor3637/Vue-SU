@@ -12,7 +12,10 @@
           <router-link to="/signin">Sign In</router-link>
         </li>
         <li v-if="auth">
-          <router-link to="/dashboard">Dashboard</router-link>
+          <router-link to="/store">Store</router-link>
+        </li>
+        <li v-if="auth">
+          <router-link to="/dashboard">Purchase Dashboard</router-link>
         </li>
         <li v-if="auth">
           <button class="logout" @click="onLogout">Logout</button>
