@@ -1,7 +1,6 @@
 <template>
   <div id="history">
-    <h1>That's the history purchases history!</h1>
-    <p>You should only get here if you're authenticated!</p>
+    <h1>Order Items</h1>
     <p v-if="email">Email address: {{email}}</p>
 
     <hr />

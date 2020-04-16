@@ -2,7 +2,7 @@
     <div>
         <h1>Past purcases: </h1>
         <hr>
-        <p>Your Order cost: --{{orderCost}} --</p>
+        <p>Your Order cost: --{{orderCost | currency}} --</p>
     </div>
 </template>
 

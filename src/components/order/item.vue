@@ -15,6 +15,7 @@
                 class="form-control"
                 placeholder="Quantity"
                 v-model="quantity"
+                :class="{danger:insufficientQuantity}"
             />
         </div>
         <div class="pull-left">
@@ -24,8 +25,8 @@
           <button 
             class="btn btn-success"
             @click="removeItem"
-            :disabled="!isInputValid"
-            >Remove</button>
+            :disabled="!isInputValid || insufficientQuantity"
+            >{{insufficientQuantity? 'You dont have so much': 'Remove'}}</button>
         </div>
       </div>
     </div>
@@ -47,6 +48,9 @@ export default {
          isInputValid() {
             let isAbove = this.quantity > 0;
             return isAbove;
+        },
+        insufficientQuantity() {
+          return this.quantity > this.item.quantity;
         },
     },
     methods: {
@@ -80,4 +84,9 @@ img {
 div.pull-left {
   padding-left: 30px;
 }
+
+.danger {
+    border: 1px solid red;
+}
 </style>
+

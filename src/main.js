@@ -7,6 +7,9 @@ import router from './router'
 import store from './store/store'
 
 Vue.use(Vuelidate);
+Vue.filter('currency', (value) => {
+  return '$' + value.toLocaleString();
+})
 
 axios.defaults.baseURL = 'https://examprep-c35f8.firebaseio.com';
 axios.defaults.headers.get['Accepts'] = 'application/json';

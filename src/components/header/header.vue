@@ -3,7 +3,7 @@
     <div class="logo navbar-header">
       <router-link :to="getActiveLogoRoute()" class="navbar-brand">Veggie Shop</router-link>
     </div>
-    <strong class="navbar-text navbar-right order-cost">Order Cost: {{orderCost}}</strong>
+    <strong class="navbar-text navbar-right order-cost">Order Cost: {{orderCost | currency}}</strong>
     <nav>
       <ul class="">
         <li v-if="!auth">
