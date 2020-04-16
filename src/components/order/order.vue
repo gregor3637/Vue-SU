@@ -1,7 +1,6 @@
 <template>
   <div id="history">
     <h1>Order Items</h1>
-    <p v-if="email">Email address: {{email}}</p>
 
     <div class="col-md-12 text-center">
       <button class="btn btn-danger" @click="buyItems">Buy Listed Items</button>
@@ -31,6 +30,7 @@ export default {
       const data = {
         cost: this.$store.getters.orderCost,
         items: this.$store.getters.itemsOrder,
+        purchaseTime: Date.now()
       };
 
       console.log('components > order> order.vue> methods> buyItems', data);

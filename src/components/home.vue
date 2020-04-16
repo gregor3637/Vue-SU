@@ -2,21 +2,28 @@
     <div>
         <h1>Past purcases: </h1>
         <hr>
-        <p>Your Order cost: --{{orderCost | currency}} --</p>
+        <p>total Orders Cost: --{{totalOrderCost}} --</p>
     </div>
 </template>
 
 <script>
 export default {
     computed:{
-        orderCost() {
+        totalOrderCost() {
 
             let a = this.$store.getters.orderCost;
             console.log('z) components> home> computed> orderCost', a);
             
-            return this.$store.getters.orderCost;
-        }
-    }
+            return this.$store.getters.totalOrderCost;
+        },
+    },
+
+
+    created() {
+        console.log('$$$$$$ home.vue> getAllItems>');
+        this.$store.dispatch("getAllItems");
+    },
+    
 }
 </script>
 

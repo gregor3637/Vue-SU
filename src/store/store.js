@@ -15,8 +15,9 @@ export default new Vuex.Store({
     idToken: null,
     userId: null,
     user: null,
+    totalOrderCost: 0,
 
-    
+
   },
   modules: {
     items,
@@ -79,7 +80,7 @@ export default new Vuex.Store({
 
     storeUser({ commit, state }, userData) {
       console.log('xxxx) store> storeUser>', userData);
-      
+
       if (!state.idToken) {
         console.log('xxxxx) store> storeUser> return');
         return
@@ -119,7 +120,7 @@ export default new Vuex.Store({
     },
 
 
-    buyItems({commit, state, dispatch}, orderData) {
+    buyItems({ commit, state, dispatch }, orderData) {
       console.log('store.js) buyItems> orderData', orderData);
 
       globalAxios.post(`/users/${state.userId}.json` + '?auth=' + state.idToken, orderData)
@@ -134,6 +135,25 @@ export default new Vuex.Store({
           router.replace('/shop');
         })
         .catch(err => console.log(err));
+    },
+
+
+    getAllItems({ commit, state }) {
+      console.log('$$$$$$ store.js) getAllItems>');
+
+      globalAxios.get(`/users/${state.userId}.json` + '?auth=' + state.idToken)
+        .then(res => {
+          console.log('$$$$$$ store.js) getAllItems> res = ', res);
+          let totalCost = 0;
+
+          let ordersList = Object.values(res.data);
+          ordersList.forEach(pur => {
+            totalCost += pur['cost'];
+          });
+
+          state.totalOrderCost = totalCost;
+        })
+
     }
   },
   getters: {
@@ -142,6 +162,9 @@ export default new Vuex.Store({
     },
     isAuthenticated(state) {
       return state.idToken !== null
+    },
+    totalOrderCost(state){
+      return state.totalOrderCost;
     }
   }
 })
