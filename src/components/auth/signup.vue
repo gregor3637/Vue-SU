@@ -64,9 +64,7 @@
         age: null,
         password: '',
         confirmPassword: '',
-        city: 'usa',
-        hobbyInputs: [],
-        terms: false
+        city: 'Sofia',
       }
     },
     validations: {
@@ -99,16 +97,6 @@
       }
     },
     methods: {
-      onAddHobby () {
-        const newHobby = {
-          id: Math.random() * Math.random() * 1000,
-          value: ''
-        }
-        this.hobbyInputs.push(newHobby)
-      },
-      onDeleteHobby (id) {
-        this.hobbyInputs = this.hobbyInputs.filter(hobby => hobby.id !== id)
-      },
       onSubmit () {
         const formData = {
           email: this.email,
@@ -116,8 +104,7 @@
           password: this.password,
           confirmPassword: this.confirmPassword,
           city: this.city,
-          hobbies: this.hobbyInputs.map(hobby => hobby.value),
-          terms: this.terms
+          orders:[],
         }
         console.log(formData)
 

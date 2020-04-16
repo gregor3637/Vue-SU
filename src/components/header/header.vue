@@ -16,7 +16,7 @@
           <router-link to="/shop">Shop</router-link>
         </li>
         <li v-if="auth">
-          <router-link to="/order">Purchase Order</router-link>
+          <router-link to="/order">Ongoing Order</router-link>
         </li>
         <li v-if="auth">
           <a class="logout" @click="onLogout">Logout</a>

@@ -46,9 +46,10 @@ export default new Vuex.Store({
           console.log('store> signup', res);
           commit('authUser', {
             idToken: res.data.idToken,
-            userId: res.data.localId
+            userId: res.data.localId,//----
+            dbUserId: 'zzzzz'
           })
-          console.log('store> signup> postPromise', authData);
+          console.log('xxx) store> signup> postPromise', authData);
           dispatch('storeUser', authData)
         })
         .catch(err => console.log(err));
@@ -77,12 +78,17 @@ export default new Vuex.Store({
     },
 
     storeUser({ commit, state }, userData) {
+      console.log('xxxx) store> storeUser>', userData);
+      
       if (!state.idToken) {
-        console.log('store> storeUser return', state);
+        console.log('xxxxx) store> storeUser> return');
         return
       }
       globalAxios.post('/users.json' + '?auth=' + state.idToken, userData)
-        .then(res => console.log('store> storeUser> postPromise ', res))
+        .then(res => {
+          console.log('xxxxx) store> storeUser> save user in relative DB');
+          router.replace('/shop');
+        })
         .catch(err => console.log(err));
 
     },
@@ -108,6 +114,24 @@ export default new Vuex.Store({
           console.log('login) store> fetch', users);
           this.email = users[0].email;
           commit('storeUser', users[0])
+        })
+        .catch(err => console.log(err));
+    },
+
+
+    buyItems({commit, state, dispatch}, orderData) {
+      console.log('store.js) buyItems> orderData', orderData);
+
+      globalAxios.post(`/users/${state.userId}.json` + '?auth=' + state.idToken, orderData)
+        .then(res => {
+          console.log('store.js) buyItems> orderData> promiseReturn', res)
+          console.log('store.js) buyItems> orderData> promiseReturn> removing all order items')
+          // state.orderItems = [];
+          dispatch('removeAll')
+          // commit('removeAll');
+          state.orderCost = 0;
+          dispatchEvent
+          router.replace('/shop');
         })
         .catch(err => console.log(err));
     }

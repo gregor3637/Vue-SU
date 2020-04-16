@@ -3,11 +3,10 @@
     <h1>Order Items</h1>
     <p v-if="email">Email address: {{email}}</p>
 
+    <div class="col-md-12 text-center">
+      <button class="btn btn-danger" @click="buyItems">Buy Listed Items</button>
+    </div>
     <hr />
-    <hr />
-    <hr />
-    <hr />
-
     <app-item v-for="(item, index) in items" :item="item" :key="index"></app-item>
   </div>
 </template>
@@ -24,6 +23,18 @@ export default {
     }),
     email() {
       return !this.$store.getters.user ? false : this.$store.getters.user.email;
+    }
+  },
+
+  methods: {
+    buyItems() {
+      const data = {
+        cost: this.$store.getters.orderCost,
+        items: this.$store.getters.itemsOrder,
+      };
+
+      console.log('components > order> order.vue> methods> buyItems', data);
+      this.$store.dispatch("buyItems", data);
     }
   },
 

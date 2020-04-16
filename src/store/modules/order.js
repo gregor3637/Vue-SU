@@ -1,6 +1,7 @@
 const state = {
     orderCost: 0,
-    items: []
+    items: [],
+    orderItems: [],
 };
 
 const mutations = {
@@ -13,6 +14,10 @@ const mutations = {
         }
         else {
             state.items.push({
+                id: itemId,
+                quantity: quantity,
+            });
+            state.orderItems.push({
                 id: itemId,
                 quantity: quantity,
             });
@@ -31,6 +36,15 @@ const mutations = {
             return isSame;
         });
 
+
+
+        const recordOrder = state.orderItems.find(element => {
+            let isSame = element.id == itemId;
+            return isSame;
+        });
+
+
+
         console.log('iii)', record);
 
 
@@ -43,7 +57,15 @@ const mutations = {
         }
 
         state.orderCost -= itemPrice * quantity;
-    }
+    },
+
+
+    'REMOVE_ALL'(state, items) {
+        console.log('======= remove all mutation');
+        state.orderItems = [];
+        state.items = [];
+        state.orderCost = 0;
+    },
 }
 
 
@@ -51,12 +73,23 @@ const actions = {
     removeItem({ commit }, order) {
         console.log('ii) store> modules> order.js> actions> removeItem !', order);
         commit('REMOVE_ITEM', order);
-    }
+    },
+    removeAll: ({commit}) => {
+        console.log('======= remove all action');
+        
+        commit('REMOVE_ALL')
+    },
 }
 
 const getters = {
     itemsOrder(state, getters) {
-        let allOrderItems = state.items.map(item => {
+
+        // console.log('------ ', state.items);
+        // console.log('------ ', state.orderItems)
+        // console.log('------ ', getters.items);
+
+        // let allOrderItems = state.items.map(item => {
+        let allOrderItems = state.orderItems.map(item => {
             const record = getters.items.find(element => element.id == item.id);
 
             let itemObj = {
