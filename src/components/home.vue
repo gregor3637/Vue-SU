@@ -2,7 +2,7 @@
     <div>
         <h1>Past purcases: </h1>
         <hr>
-        <p>total Orders Cost: --{{totalOrderCost}} --</p>
+        <p v-if="totalOrderCost">total Orders Cost: --{{totalOrderCost}} --</p>
     </div>
 </template>
 
@@ -10,10 +10,8 @@
 export default {
     computed:{
         totalOrderCost() {
-
             let a = this.$store.getters.orderCost;
             console.log('z) components> home> computed> orderCost', a);
-            
             return this.$store.getters.totalOrderCost;
         },
     },

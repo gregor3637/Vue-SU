@@ -36,15 +36,6 @@
                   @blur="$v.confirmPassword.$touch()"
                   v-model="confirmPassword">
         </div>
-        <div class="input">
-          <label for="city">City</label>
-          <select id="city" v-model="city">
-            <option value="sofia">Sofia</option>
-            <option value="varna">Varna</option>
-            <option value="ruse">Ruse</option>
-            <option value="pleven">Pleven</option>
-          </select>
-        </div>
         
         <div class="submit">
           <button type="submit" :disabled="$v.$invalid">Submit</button>
@@ -64,7 +55,6 @@
         age: null,
         password: '',
         confirmPassword: '',
-        city: 'Sofia',
       }
     },
     validations: {
@@ -103,7 +93,6 @@
           age: this.age,
           password: this.password,
           confirmPassword: this.confirmPassword,
-          city: this.city,
           orders:[],
         }
         console.log(formData)
