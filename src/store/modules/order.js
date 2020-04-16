@@ -7,7 +7,7 @@ const mutations = {
     'BUY_ITEM'(state, { itemId, quantity, itemPrice }) {
         const record = state.items.find(element => element.id == itemId);
         console.log('3) store> modules> order.js> BUY_ITEM');
-        
+
         if (record) {
             record.quantity += quantity;
         }
@@ -23,8 +23,17 @@ const mutations = {
 
 
 
-    'REMOVE_ITEM'(state, { itemid, quantity, itemPrice }) {
-        const record = state.items.find(element => element.id == itemId);
+    'REMOVE_ITEM'(state, { itemId, quantity, itemPrice }) {
+        console.log(`iii) store> modules> order.js> mutations> REMOVE_ITEM`);
+
+        const record = state.items.find(element => {
+            let isSame = element.id == itemId;
+            return isSame;
+        });
+
+        console.log('iii)', record);
+
+
 
         if (record.quantity > quantity) {
             record.quantity -= quantity;
@@ -40,9 +49,7 @@ const mutations = {
 
 const actions = {
     removeItem({ commit }, order) {
-
-        console.log(`ii) store> modules> order.js> actions> removeItem`, order);
-        
+        console.log('ii) store> modules> order.js> actions> removeItem !', order);
         commit('REMOVE_ITEM', order);
     }
 }
@@ -51,7 +58,7 @@ const getters = {
     itemsOrder(state, getters) {
         let allOrderItems = state.items.map(item => {
             const record = getters.items.find(element => element.id == item.id);
-            
+
             let itemObj = {
                 id: item.id,
                 quantity: item.quantity,
@@ -59,10 +66,10 @@ const getters = {
                 price: record.price
             };
 
-            
+
             return itemObj;
         });
-        
+
         console.log('-) store> modules> order.js> getters> itemsOrder', allOrderItems);
         return allOrderItems;
     },

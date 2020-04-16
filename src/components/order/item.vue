@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-12">
-    <div class="panel panel-success">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">
           {{item.name}}
@@ -50,21 +50,22 @@ export default {
         },
     },
     methods: {
-        ...mapActions([
-            'removeItem'
-        ]),
-        getImgUrl(pic) {
-            return require('../../assets/' + pic + ".jpg")
-        },
+        ...mapActions({
+           removeItemsQuantity: 'removeItem'
+        }),
         removeItem() {
             const order = {
                 itemId: this.item.id,
                 itemPrice: this.item.price,
-                quantity: this.quantity,
+                quantity: Number(this.quantity),
             };
 
             console.log(`i) components > order> item.vue> methods> removeItem`, order);
-        
+            this.removeItemsQuantity(order);
+            this.quantity = 0;
+        },
+        getImgUrl(pic) {
+            return require('../../assets/' + pic + ".jpg")
         }
     }
 }
