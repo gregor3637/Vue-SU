@@ -1,5 +1,5 @@
 const state = {
-    funds: 10000,
+    orderCost: 0,
     items: []
 };
 
@@ -18,7 +18,7 @@ const mutations = {
             });
         }
 
-        state.funds -= itemPrice * quantity;
+        state.orderCost += itemPrice * quantity;
     },
 
 
@@ -42,7 +42,7 @@ const mutations = {
             state.items.splice(state.items.indexOf(record), 1);
         }
 
-        state.funds += itemPrice * quantity;
+        state.orderCost -= itemPrice * quantity;
     }
 }
 
@@ -73,8 +73,8 @@ const getters = {
         console.log('-) store> modules> order.js> getters> itemsOrder', allOrderItems);
         return allOrderItems;
     },
-    funds(state) {
-        return state.items;
+    orderCost(state) {
+        return state.orderCost;
     }
 }
 

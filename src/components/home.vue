@@ -1,18 +1,20 @@
 <template>
     <div>
-        <h1>Trade or View your portfolio</h1>
-        <h6>You may save and load your data</h6>
-        <h6>click on 'End day'To begin a new Day</h6>
+        <h1>Past purcases: </h1>
         <hr>
-        <!-- <p>Your Funds: {{funds | currency}}</p> -->
+        <p>Your Order cost: --{{orderCost}} --</p>
     </div>
 </template>
 
 <script>
 export default {
     computed:{
-        funds() {
-            return this.$store.getters.funds;
+        orderCost() {
+
+            let a = this.$store.getters.orderCost;
+            console.log('z) components> home> computed> orderCost', a);
+            
+            return this.$store.getters.orderCost;
         }
     }
 }

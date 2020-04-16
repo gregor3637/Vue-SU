@@ -3,6 +3,7 @@
     <div class="logo navbar-header">
       <router-link :to="getActiveLogoRoute()" class="navbar-brand">Veggie Shop</router-link>
     </div>
+    <strong class="navbar-text navbar-right order-cost">Order Cost: {{orderCost}}</strong>
     <nav>
       <ul class="">
         <li v-if="!auth">
@@ -28,9 +29,12 @@
 <script>
 export default {
   computed: {
+    orderCost() {
+      return this.$store.getters.orderCost;
+    },
     auth() {
       return this.$store.getters.isAuthenticated;
-    }
+    },
   },
   methods: {
     onLogout() {
@@ -95,6 +99,10 @@ li a.router-link-active {
   color: red;
 }
 
+
+.order-cost{
+  color: white;
+}
 .logout {
   background-color: transparent;
   border: none;
