@@ -12,7 +12,8 @@ const mutations = {
 
 const actions = {
     buyItem: ({ commit }, order) => {
-        commit();
+        console.log('2) store> modules> items.js', order);
+        commit('BUY_ITEM', order);
     },
     initItems: ({commit}) => {
         commit('SET_ITEMS', items)

@@ -18,14 +18,14 @@
             />
         </div>
         <div class="pull-left">
-          <p>Price: {{item.price}}</p>
+          <p>Price: {{item.price}} | Quantity: {{item.quantity}}</p>
         </div>
         <div class="pull-right">
           <button 
             class="btn btn-success"
-            @click="buyItem"
+            @click="removeItem"
             :disabled="!isInputValid"
-            >Buy</button>
+            >Remove</button>
         </div>
       </div>
     </div>
@@ -34,6 +34,8 @@
 
 
 <script>
+import {mapActions} from 'vuex';
+
 export default {
     props: ['item'],
     data() {
@@ -48,21 +50,21 @@ export default {
         },
     },
     methods: {
+        ...mapActions([
+            'removeItem'
+        ]),
         getImgUrl(pic) {
             return require('../../assets/' + pic + ".jpg")
         },
-        buyItem(){
+        removeItem() {
             const order = {
                 itemId: this.item.id,
-                itemName: this.item.name,
                 itemPrice: this.item.price,
-                quantity: Number(this.quantity),
+                quantity: this.quantity,
             };
 
-            console.log('1) shop> item', order);
-            this.$store.dispatch('buyItem', order);
-            this.quantity = 0;
-            
+            console.log(`i) components > order> item.vue> methods> removeItem`, order);
+        
         }
     }
 }

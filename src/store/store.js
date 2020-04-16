@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import router from '../router.js'
 
 import items from './modules/items.js'
+import order from './modules/order.js'
 
 import axios from '../axios-auth.js';
 import globalAxios from 'axios';
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     
   },
   modules: {
-    items
+    items,
+    order
   },
   mutations: {
     authUser(state, userData) {
@@ -64,7 +66,7 @@ export default new Vuex.Store({
             idToken: res.data.idToken,
             userId: res.data.localId
           })
-          router.replace('/history');
+          router.replace('/shop');
         })
         .catch(err => console.log(err));
     },
@@ -88,12 +90,12 @@ export default new Vuex.Store({
 
     fetchUser({ commit, state }) {
       if (!state.idToken) {
-        console.log('store> fetchUser return', state);
+        console.log('login) store> fetchUser return', state);
         return
       }
       globalAxios.get('/users.json' + '?auth=' + state.idToken)
         .then(res => {
-          console.log('store> fetchUser ', res);
+          console.log('login) store> fetchUser ', res);
 
           const data = res.data;
           const users = [];
@@ -103,7 +105,7 @@ export default new Vuex.Store({
             users.push(user);
           }
 
-          console.log('store> fetch', users);
+          console.log('login) store> fetch', users);
           this.email = users[0].email;
           commit('storeUser', users[0])
         })
