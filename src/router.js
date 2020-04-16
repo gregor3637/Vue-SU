@@ -8,6 +8,7 @@ import OrderPage from './components/order/order.vue'
 import SignupPage from './components/auth/signup.vue'
 import SigninPage from './components/auth/signin.vue'
 import ShopPage from './components/shop/shop.vue'
+import UserHomePage from './components/home.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,17 @@ const routes = [
   { path: '/signin', component: SigninPage },
   {
     path: '/shop', component: ShopPage,
+    beforeEnter(to, from, next) {
+      if (store.state.idToken) {
+        next()
+      }
+      else {
+        next('/signin')
+      }
+    }
+  },
+  {
+    path: '/userHome', component: UserHomePage,
     beforeEnter(to, from, next) {
       if (store.state.idToken) {
         next()

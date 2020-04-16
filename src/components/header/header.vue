@@ -1,7 +1,7 @@
 <template>
   <header id="header">
     <div class="logo navbar-header">
-      <router-link to="/" class="navbar-brand">Veggie Shop</router-link>
+      <router-link :to="getActiveLogoRoute()" class="navbar-brand">Veggie Shop</router-link>
     </div>
     <nav>
       <ul class="">
@@ -35,7 +35,11 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch("logout");
-    }
+    },
+    getActiveLogoRoute() {
+      let urlRes =  this.auth? "/userHome" : "/" ;
+      return urlRes;
+    },
   }
 };
 </script>
